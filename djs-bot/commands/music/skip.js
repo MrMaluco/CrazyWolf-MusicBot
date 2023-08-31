@@ -5,7 +5,7 @@ const { redEmbed } = require("../../util/embeds");
 
 const command = new SlashCommand()
 	.setName("skip")
-	.setDescription("Skip the current song")
+	.setDescription("Pular a música atual")
 	.setRun(async (client, interaction, options) => {
 		let channel = await client.getChannel(client, interaction);
 		if (!channel) {
@@ -20,7 +20,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Lavalink node is not connected"),
+						.setDescription("O nó Lavalink não está conectado"),
 				],
 			});
 		}
@@ -30,7 +30,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("There is nothing to skip."),
+						.setDescription("Não há nada para pular."),
 				],
 				ephemeral: true,
 			});
@@ -44,7 +44,7 @@ const command = new SlashCommand()
 			return interaction.reply({
 				embeds: [
 					redEmbed(
-						`There is nothing after [${song.title}](${song.uri}) in the queue.`
+						`Não há nada depois de [${song.title}](${song.uri}) na fila.`
 					),
 				],
 			});
@@ -54,7 +54,7 @@ const command = new SlashCommand()
 			embeds: [
 				new EmbedBuilder()
 					.setColor(client.config.embedColor)
-					.setDescription("✅ | **Skipped!**"),
+					.setDescription("✅ | **Pulada!**"),
 			],
 		});
 	});

@@ -4,12 +4,12 @@ module.exports = {
 	name: "userinfo",
 	category: "utility",
 	usage: "/userinfo <user?>",
-	description: "Get information on a user or yourself",
+	description: "Obtenha informações sobre um usuário ou sobre você mesmo",
 	options: [
 		{
 			name: 'user',
 			type: 6, // "USER"
-			description: 'User you want to get information about. If omitted, will return your information',
+			description: 'Usuário sobre o qual você deseja obter informações. Se omitido, retornará suas informações',
 			required: false,
 		},
 	],
@@ -32,19 +32,19 @@ module.exports = {
 			.setColor(client.config.embedColor || member.displayHexColor || 'RANDOM')
 			.setThumbnail(target.displayAvatarURL({ dynamic: true }))
 			.setAuthor({ name: `${target.tag} (${target.id})`, iconURL: target.displayAvatarURL({ dynamic: true })})
-			.addField('**User Information**', [
-				`**❯ Username:** ${target.username}`,
-				`**❯ Discriminator:** ${target.discriminator}`,
+			.addField('**Informação do usuário**', [
+				`**❯ Nome de usuário:** ${target.username}`,
+				`**❯ Discriminador:** ${target.discriminator}`,
 				`**❯ ID:** ${target.id}`,
-				`**❯ Avatar:** [Link to avatar](${target.displayAvatarURL({ dynamic: true })})`,
-				`**❯ Time Created:** ${new Date(target.createdTimestamp).toLocaleString()}`,
+				`**❯ Avatar:** [Link pro avatar](${target.displayAvatarURL({ dynamic: true })})`,
+				`**❯ Hora de criação:** ${new Date(target.createdTimestamp).toLocaleString()}`,
 				`**❯ Status:** ${status[target.presence?.status]}`,
 				`**❯ Bot:** ${target.bot}`
 			].join('\n').toString())
-			.addField('**Member Information**', [
-				`**❯ Highest Role:** ${member.roles.highest.id === interaction.guild.id ? "None" : `<@&${member.roles.highest.id}>`}`,
-				`**❯ Server Join Date:** ${new Date(member.joinedTimestamp).toLocaleString()}`,
-				`**❯ Roles [${member.roles.cache.size - 1}]:** ${roles}`
+			.addField('**Informações dos membros**', [
+				`**❯ Função mais alta:** ${member.roles.highest.id === interaction.guild.id ? "None" : `<@&${member.roles.highest.id}>`}`,
+				`**❯ Data de adesão ao servidor:** ${new Date(member.joinedTimestamp).toLocaleString()}`,
+				`**❯ Funções [${member.roles.cache.size - 1}]:** ${roles}`
 			].join('\n').toString())
 			.setTimestamp();
 

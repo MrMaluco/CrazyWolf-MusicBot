@@ -4,11 +4,11 @@ const ms = require("ms");
 
 const command = new SlashCommand()
 	.setName("seek")
-	.setDescription("Seek to a specific time in the current song.")
+	.setDescription("Procure um horário específico na música atual.")
 	.addStringOption((option) =>
 		option
 			.setName("time")
-			.setDescription("Seek to time you want. Ex 1h 30m | 2h | 80m | 53s")
+			.setDescription("Procure o horário que desejar. Ex 1h 30m | 2h | 80m | 53s")
 			.setRequired(true),
 	)
 	.setRun(async (client, interaction) => {
@@ -25,7 +25,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Lavalink node is not connected"),
+						.setDescription("O nó Lavalink não está conectado"),
 				],
 			});
 		}
@@ -35,7 +35,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("There is no music playing."),
+						.setDescription("Não há música tocando."),
 				],
 				ephemeral: true,
 			});
@@ -60,9 +60,9 @@ const command = new SlashCommand()
 					new EmbedBuilder()
 						.setColor(client.config.embedColor)
 						.setDescription(
-							`⏩ | **${ player.queue.current.title }** has been ${
+							`⏩ | **${ player.queue.current.title }** foi ${
 								time < position? "rewound" : "seeked"
-							} to **${ ms(time) }**`,
+							} para **${ ms(time) }**`,
 						),
 				],
 			});
@@ -72,7 +72,7 @@ const command = new SlashCommand()
 					new EmbedBuilder()
 						.setColor(client.config.embedColor)
 						.setDescription(
-							`Unable to seek current playing track. This may be due to exceeding track duration or an incorrect time format. Please check and try again`,
+							`Não é possível procurar a faixa em reprodução atual. Isso pode ser devido ao excesso de duração da faixa ou a um formato de hora incorreto. Por favor verifique e tente novamente`,
 						),
 				],
 			});

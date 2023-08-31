@@ -6,7 +6,7 @@ const { embedNoLLNode, embedNoTrackPlaying } = require("./embeds");
  */
 const ccInteractionHook = async (client, interaction) => {
 	if (!interaction.isButton()) {
-		throw new Error("Invalid interaction type for this command");
+		throw new Error("Tipo de interação inválido para este comando");
 	}
 
 	const channel = await client.getChannel(client, interaction, {
@@ -54,7 +54,7 @@ const ccInteractionHook = async (client, interaction) => {
 const checkPlayerVolume = async (player, interaction) => {
 	if (typeof player.volume !== "number")
 		return interaction.reply({
-			content: "Something's wrong",
+			content: "Algo está errado",
 			ephemeral: true,
 		});
 };

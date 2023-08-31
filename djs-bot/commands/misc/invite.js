@@ -3,13 +3,13 @@ const SlashCommand = require("../../lib/SlashCommand");
 
 const command = new SlashCommand()
   .setName("invite")
-  .setDescription("Invite me to your server")
+  .setDescription("Convide-me para o seu servidor")
   .setRun(async (client, interaction, options) => {
     return interaction.reply({
       embeds: [
         new EmbedBuilder()
           .setColor(client.config.embedColor)
-          .setTitle(`Invite me to your server!`),
+          .setTitle(`Convide-me para o seu servidor!`),
       ],
       components: [
         new ActionRowBuilder().addComponents(

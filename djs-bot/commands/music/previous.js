@@ -5,7 +5,7 @@ const { redEmbed } = require("../../util/embeds");
 
 const command = new SlashCommand()
 .setName("previous")
-.setDescription("Go back to the previous song.")
+.setDescription("Volte para a música anterior.")
 .setRun(async (client, interaction) => {
 	let channel = await client.getChannel(client, interaction);
 	if (!channel) {
@@ -20,7 +20,7 @@ const command = new SlashCommand()
 			embeds: [
 				new EmbedBuilder()
 					.setColor("Red")
-					.setDescription("Lavalink node is not connected"),
+					.setDescription("O nó Lavalink não está conectado"),
 			],
 		});
 	}
@@ -30,7 +30,7 @@ const command = new SlashCommand()
 			embeds: [
 				new EmbedBuilder()
 					.setColor("Red")
-					.setDescription("There are no previous songs for this session."),
+					.setDescription("Não há músicas anteriores para esta sessão."),
 			],
 			ephemeral: true,
 		});
@@ -41,7 +41,7 @@ const command = new SlashCommand()
 
 	if (status === 1) return interaction.reply({
 		embeds: [
-			redEmbed({desc: "There is no previous song in the queue."}),
+			redEmbed({desc: "Não há nenhuma música anterior na fila."}),
 		],
 	})
 
@@ -50,7 +50,7 @@ const command = new SlashCommand()
 			new EmbedBuilder()
 				.setColor(client.config.embedColor)
 				.setDescription(
-					`⏮ | Previous song: **${ previousSong.title }**`,
+					`⏮ | Música anterior: **${ previousSong.title }**`,
 				),
 		],
 	});

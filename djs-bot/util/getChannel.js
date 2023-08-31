@@ -15,7 +15,7 @@ module.exports = async (client, interaction, options = {}) => {
 
 
 		if (!interaction.member.voice.channel) {
-			errorStr = "You must be in a voice channel to use this command!";
+			errorStr = "Você deve estar em um canal de voz para usar este comando!";
 		}
 		else if (
 			interaction.guild.members.cache.get(client.user.id).voice.channel &&
@@ -24,10 +24,10 @@ module.exports = async (client, interaction, options = {}) => {
 			.voice.channel.equals(interaction.member.voice.channel)
 		) {
 			errorStr =
-				"You must be in the same voice channel as me to use this command!";
+				"Você deve estar no mesmo canal de voz que eu para usar este comando!";
 		}
 		else if (!interaction.member.voice.channel.joinable) {
-			errorStr = "I don't have enough permission to join your voice channel!";
+			errorStr = "Não tenho permissão suficiente para entrar no seu canal de voz!";
 		}
 
 

@@ -3,7 +3,7 @@ const { EmbedBuilder } = require("discord.js");
 
 const command = new SlashCommand()
 	.setName("clear")
-	.setDescription("Clear all tracks from queue")
+	.setDescription("Limpar todas as músicas da fila")
 	.setRun(async (client, interaction, options) => {
 		let channel = await client.getChannel(client, interaction);
 		if (!channel) {
@@ -18,7 +18,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Lavalink node is not connected"),
+						.setDescription("O nó Lavalink não está conectado"),
 				],
 			});
 		}
@@ -28,7 +28,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Nothing is playing right now."),
+						.setDescription("Nada está tocando agora."),
 				],
 				ephemeral: true,
 			});
@@ -37,7 +37,7 @@ const command = new SlashCommand()
 		if (!player.queue || !player.queue.length || player.queue.length === 0) {
 			let cembed = new EmbedBuilder()
 				.setColor(client.config.embedColor)
-				.setDescription("❌ | **Invalid, Not enough track to be cleared.**");
+				.setDescription("❌ | **Inválido, músicas insuficientes para serem apagadas.**");
 			
 			return interaction.reply({ embeds: [cembed], ephemeral: true });
 		}
@@ -46,7 +46,7 @@ const command = new SlashCommand()
 		
 		let clearEmbed = new EmbedBuilder()
 			.setColor(client.config.embedColor)
-			.setDescription(`✅ | **Cleared the queue!**`);
+			.setDescription(`✅ | **Limpou a fila!**`);
 		
 		return interaction.reply({ embeds: [clearEmbed] });
 	});

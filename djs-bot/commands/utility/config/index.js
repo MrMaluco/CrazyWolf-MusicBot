@@ -4,7 +4,7 @@ module.exports = new SlashCommand()
 	.setName("config")
 	.setCategory("utility")
 	.setDBMS()
-	.setDescription("Configure various bot settings")
+	.setDescription("Defina várias configurações de bot")
 	// !TODO: complete setUsage ?
 	.setUsage("/config")
 	.setRun(async function(...args) {

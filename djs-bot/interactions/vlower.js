@@ -4,7 +4,7 @@ const { ccInteractionHook, checkPlayerVolume } = require("../util/interactions")
 const command = new SlashCommand()
 	.setName("vlower")
 	.setCategory("cc")
-	.setDescription("Lower Volume interaction")
+	.setDescription("Interação de volume mais baixo")
 	.setRun(async (client, interaction, options) => {
 		const { error, data } = await ccInteractionHook(client, interaction);
 
@@ -12,7 +12,7 @@ const command = new SlashCommand()
 
 		const { player, channel, sendError } = data;
 
-		// this probably will never run but just in case
+		// isso provavelmente nunca será executado, mas apenas no caso
 		const replied = await checkPlayerVolume(player, interaction);
 		if (replied) return replied;
 

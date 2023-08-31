@@ -8,7 +8,7 @@ module.exports = async () => {
 			const config = require("../config");
 			resolve(config);
 		} catch {
-			reject("No config file found.\nMake sure it is filled in completely!");
+			reject("Nenhum arquivo de configuração encontrado.\nCertifique-se de que esteja completamente preenchido!");
 		}
 	}).catch(err => {
 		console.log(err);

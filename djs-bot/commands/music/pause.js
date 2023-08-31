@@ -3,7 +3,7 @@ const { EmbedBuilder } = require("discord.js");
 
 const command = new SlashCommand()
 	.setName("pause")
-	.setDescription("Pauses the current playing track")
+	.setDescription("Pausa a música atual em reprodução")
 	.setRun(async (client, interaction, options) => {
 		let channel = await client.getChannel(client, interaction);
 		if (!channel) {
@@ -18,7 +18,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Lavalink node is not connected"),
+						.setDescription("O nó Lavalink não está conectado"),
 				],
 			});
 		}
@@ -28,7 +28,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Nothing is playing."),
+						.setDescription("Nada está tocando."),
 				],
 				ephemeral: true,
 			});
@@ -39,7 +39,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Current playing track is already paused!"),
+						.setDescription("A música atual já está pausada!"),
 				],
 				ephemeral: true,
 			});
@@ -50,7 +50,7 @@ const command = new SlashCommand()
 			embeds: [
 				new EmbedBuilder()
 					.setColor(client.config.embedColor)
-					.setDescription(`⏸ | **Paused!**`),
+					.setDescription(`⏸ | **Pausado!**`),
 			],
 		});
 	});

@@ -7,7 +7,7 @@ module.exports = {
 	name: "nodes",
 	category: "utility",
 	usage: "/nodes",
-	description: "Check the bot's lavalink node statistics!",
+	description: "Verifique as estatísticas do nó lavalink do bot!",
 	ownerOnly: false,
 	/**
 	 * 
@@ -19,7 +19,7 @@ module.exports = {
 		let lavauptime, lavaram, lavaclientstats;
 		
 		const statsEmbed = new EmbedBuilder()
-		.setTitle(`${client.user.username} Nodes Information`)
+		.setTitle(`${client.user.username} Informações dos nós`)
 		.setColor(client.config.embedColor)
 		
 		if (client.manager) {
@@ -37,7 +37,7 @@ module.exports = {
 				)
 			}
 		} else {
-			statsEmbed.setDescription("**Lavalink manager was not initialized on startup, there are no nodes connected.**")
+			statsEmbed.setDescription("**O gerenciador Lavalink não foi inicializado na inicialização, não há nós conectados.**")
 		}
 		return interaction.reply({ embeds: [statsEmbed], ephemeral: true });
 	},

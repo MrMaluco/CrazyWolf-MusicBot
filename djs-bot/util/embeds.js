@@ -16,7 +16,7 @@ const { escapeMarkdown } = require("discord.js");
  * @param {ColorEmbedParams}
  */
 const colorEmbed = ({ color, desc }) => {
-  if (!desc?.length) throw new Error("[colorEmbed] No description provided");
+  if (!desc?.length) throw new Error("[colorEmbed] Nenhuma descrição fornecida");
 
   return new EmbedBuilder()
     .setColor(color || getClient().config.embedColor)
@@ -26,7 +26,7 @@ const colorEmbed = ({ color, desc }) => {
 /**
  * @param {ColorEmbedParams}
  */
-const successEmbed = ({ color, desc = "Success" } = {}) =>
+const successEmbed = ({ color, desc = "Sucesso" } = {}) =>
   colorEmbed({ color: color, desc: `✅ | **${desc}**` });
 
 /**
@@ -42,22 +42,22 @@ const redEmbed = (options = {}) => colorEmbed({ color: "Red", ...options });
 
 const embedNoLLNode = () =>
   redEmbed({
-    desc: "Lavalink node is not connected",
+    desc: "O nó Lavalink não está conectado",
   });
 
 const embedNoTrackPlaying = () =>
   redEmbed({
-    desc: "Nothing is playing right now.",
+    desc: "Nada está tocando agora.",
   });
 
 const embedNotEnoughTrackToClear = () =>
   errorEmbed({
-    desc: "Invalid, Not enough track to be cleared.",
+    desc: "Inválido, música insuficiente para ser apagada.",
   });
 
 const embedClearedQueue = () =>
   successEmbed({
-    desc: "Cleared the queue!",
+    desc: "Limpou a fila!",
   });
 
 /**
@@ -73,16 +73,16 @@ const trackStartedEmbed = ({ track, player } = {}) => {
 
   if (track) {
     embed
-      .setAuthor({ name: "Now playing", iconURL: client.config.iconURL })
+      .setAuthor({ name: "Tocando agora", iconURL: client.config.iconURL })
       .setDescription(`[${track.title}](${track.uri})`)
       .addFields([
         {
-          name: "Requested by",
+          name: "Pedido por",
           value: `${track.requester}`,
           inline: true,
         },
         {
-          name: "Duration",
+          name: "Duração",
           value: track.isStream
             ? `\`LIVE\``
             : `\`${prettyMilliseconds(track.duration, {
@@ -102,7 +102,7 @@ const trackStartedEmbed = ({ track, player } = {}) => {
   } else {
     // !TODO: finish this
     embed
-      .setTitle("No song currently playing")
+      .setTitle("Nenhuma música tocando no momento")
       .setImage(
         "https://cdn.discordapp.com/avatars/788006279837909032/e4cf889f9fe19f9b4dd5301d51bddcb2.webp?size=4096"
       );
@@ -175,7 +175,7 @@ const controlChannelMessage = ({ guildId, track } = {}) => {
   const components = [firstRow, secondRow];
 
   return {
-    content: "Join a voice channel and queue songs by name or url in here.",
+    content: "Junte-se a um canal de voz e coloque músicas na fila por nome ou URL aqui.",
     embeds: [trackStartedEmbed({ track, player })],
     components,
   };
@@ -196,17 +196,17 @@ const addQueueEmbed = ({ track, player, requesterId }) => {
 
   const embed = new EmbedBuilder()
     .setColor(client.config.embedColor)
-    .setAuthor({ name: "Added to queue", iconURL: client.config.iconURL })
-    .setDescription(`[${title}](${track.uri})` || "No Title")
+    .setAuthor({ name: "Adicionado à fila", iconURL: client.config.iconURL })
+    .setDescription(`[${title}](${track.uri})` || "Sem Nome")
     .setURL(track.uri)
     .addFields([
       {
-        name: "Added by",
+        name: "Pedido por",
         value: `<@${requesterId}>`,
         inline: true,
       },
       {
-        name: "Duration",
+        name: "Duração",
         value: track.isStream
           ? `\`LIVE 🔴 \``
           : `\`${client.ms(track.duration, {
@@ -226,7 +226,7 @@ const addQueueEmbed = ({ track, player, requesterId }) => {
   if (player.queue.totalSize > 1) {
     embed.addFields([
       {
-        name: "Position in queue",
+        name: "Posição na fila",
         value: `${player.queue.size}`,
         inline: true,
       },
@@ -249,19 +249,19 @@ const loadedPlaylistEmbed = ({ searchResult, query }) => {
   const embed = new EmbedBuilder()
     .setColor(client.config.embedColor)
     .setAuthor({
-      name: "Playlist added to queue",
+      name: "Playlist adicionada à fila",
       iconURL: client.config.iconURL,
     })
     .setThumbnail(searchResult.tracks[0].thumbnail)
     .setDescription(`[${searchResult.playlist.name}](${query})`)
     .addFields([
       {
-        name: "Enqueued",
-        value: `\`${searchResult.tracks.length}\` songs`,
+        name: "Enfileirado",
+        value: `\`${searchResult.tracks.length}\` músicas`,
         inline: true,
       },
       {
-        name: "Playlist duration",
+        name: "Duração da playlist",
         value: `\`${client.ms(searchResult.playlist.duration, {
           colonNotation: true,
           secondsDecimalDigits: 0,
@@ -277,11 +277,11 @@ const autoQueueEmbed = ({ autoQueue }) => {
   const client = getClient();
   return new EmbedBuilder()
     .setColor(client.config.embedColor)
-    .setDescription(`**Auto Queue is** \`${!autoQueue ? "ON" : "OFF"}\``)
+    .setDescription(`**A fila automática está** \`${!autoQueue ? "ON" : "OFF"}\``)
     .setFooter({
-      text: `Related music will ${
-        !autoQueue ? "now be automatically" : "no longer be"
-      } added to the queue.`,
+      text: `Músicas relacionadas serão ${
+        !autoQueue ? "agora automaticamente": "não mais"
+      } adicionado à fila.`,
     });
 };
 

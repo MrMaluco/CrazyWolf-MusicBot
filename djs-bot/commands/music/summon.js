@@ -3,14 +3,14 @@ const { EmbedBuilder } = require("discord.js");
 
 const command = new SlashCommand()
 	.setName("summon")
-	.setDescription("Summons the bot to the channel.")
+	.setDescription("Invoca o bot para o canal.")
 	.setRun(async (client, interaction, options) => {
 		let channel = await client.getChannel(client, interaction);
 		if (!interaction.member.voice.channel) {
 			const joinEmbed = new EmbedBuilder()
 				.setColor(client.config.embedColor)
 				.setDescription(
-					"❌ | **You must be in a voice channel to use this command.**",
+					"❌ | **Você deve estar em um canal de voz para usar este comando.**",
 				);
 			return interaction.reply({ embeds: [joinEmbed], ephemeral: true });
 		}
@@ -32,7 +32,7 @@ const command = new SlashCommand()
 		
 		interaction.reply({
 			embeds: [
-				new EmbedBuilder().setDescription(`:thumbsup: | **Successfully joined <#${ channel.id }>!**`),
+				new EmbedBuilder().setDescription(`:thumbsup: | **Ingressado com sucesso <#${ channel.id }>!**`),
 			],
 		});
 	});

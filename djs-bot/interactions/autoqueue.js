@@ -6,7 +6,7 @@ const { updateControlMessage } = require("../util/controlChannel");
 const command = new SlashCommand()
 	.setName("autoqueue")
 	.setCategory("cc")
-	.setDescription("Autoqueue interaction")
+	.setDescription("Interação de fila automática")
 	.setRun(async (client, interaction, options) => {
 		const { error, data } = await ccInteractionHook(client, interaction);
 

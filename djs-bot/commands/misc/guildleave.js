@@ -6,11 +6,11 @@ const { forEach } = require("lodash");
 
 const command = new SlashCommand()
 	.setName("guildleave")
-	.setDescription("leaves a guild")
+	.setDescription("deixa uma guilda")
     .addStringOption((option) =>
     option
       .setName("id")
-      .setDescription("Enter the guild id to leave (type `list` for guild ids)")
+      .setDescription("Digite o id da guilda para deixar (digite 'list' para ids da guilda)")
       .setRequired(true)
   )
   .setRun(async (client, interaction, options) => {
@@ -24,29 +24,29 @@ const command = new SlashCommand()
 			    });
 			    const guild = client.guilds.cache.map(guild => ` ${guild.name} | ${guild.id}`);
 			    try{
-				return interaction.reply({content:`Guilds:\n\`${guild}\``, ephemeral: true});
+				return interaction.reply({content:`Guildas:\n\`${guild}\``, ephemeral: true});
 			    }catch{
-				return interaction.reply({content:`check console for list of guilds`, ephemeral: true});
+				return interaction.reply({content:`Verifique o console para obter a lista de guildas`, ephemeral: true});
 			    }
 			}
 
 			const guild = client.guilds.cache.get(id);
 
 			if(!guild){
-			    return interaction.reply({content: `\`${id}\` is not a valid guild id`, ephemeral:true});
+			    return interaction.reply({content: `\`${id}\` não é um id de guilda válido`, ephemeral:true});
 			}
 
 			await guild.leave().then(c => console.log(`left guild ${id}`)).catch((err) => {console.log(err)});
 			return interaction.reply({content:`left guild \`${id}\``, ephemeral: true});
 		    }catch (error){
-			console.log(`there was an error trying to leave guild ${id}`, error);
+			console.log(`houve um erro ao tentar sair da guilda ${id}`, error);
 		    }
 		}else {
 			return interaction.reply({
 				embeds: [
 					new EmbedBuilder()
 						.setColor(client.config.embedColor)
-						.setDescription("You are not authorized to use this command!"),
+						.setDescription("Você não está autorizado a usar este comando!"),
 				],
 				ephemeral: true,
 			});

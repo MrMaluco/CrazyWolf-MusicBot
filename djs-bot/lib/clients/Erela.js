@@ -202,7 +202,7 @@ module.exports = (client) => {
 			if (err.message.includes("Unexpected op \"ready\"")) return;
 			client.error(err);
 			errorEmbed
-				.setTitle("Node error!")
+				.setTitle("Erro de nó!")
 				.setDescription(`\`\`\`${err.error}\`\`\``)
 
 			client.channels.cache
@@ -212,7 +212,7 @@ module.exports = (client) => {
 		.on("trackError", (player, err) => {
 			client.error(`Track has an error: ${err.error}`);
 			errorEmbed
-				.setTitle("Playback error!")
+				.setTitle("Erro de reprodução!")
 				.setDescription(`\`\`\`${err.error}\`\`\``)
 
 			client.channels.cache
@@ -222,7 +222,7 @@ module.exports = (client) => {
 		.on("trackStuck", (player) => {
 			client.warn(`Track has an error: ${err.error}`);
 			errorEmbed
-				.setTitle("Track error!")
+				.setTitle("Erro de rastreamento!")
 				.setDescription(`\`\`\`${err.error}\`\`\``)
 
 			client.channels.cache
@@ -241,7 +241,7 @@ module.exports = (client) => {
 						embeds: [
 							new EmbedBuilder()
 							.setColor(client.config.embedColor)
-							.setDescription(`Disconnected from <#${oldChannel}>`),
+							.setDescription(`Desconectado de <#${oldChannel}>`),
 						],
 					}).catch(client.warn);
 
@@ -306,7 +306,7 @@ module.exports = (client) => {
 									name: `${res.exception.severity}`,
 									iconURL: client.config.iconURL,
 								})
-								.setDescription(`Could not load track.\n**ERR:** ${res.exception.message}`)
+								.setDescription(`Não foi possível carregar a música.\n**ERR:** ${res.exception.message}`)
 							]
 						});
 					return player.destroy();
@@ -319,9 +319,9 @@ module.exports = (client) => {
 
 				let queueEmbed = new EmbedBuilder()
 					.setColor(client.config.embedColor)
-					.setAuthor({ name: `The queue has ended ${(twentyFourSeven) ? "but 24/7 is on!" : ""}`, iconURL: client.config.iconURL, })
-					.setDescription(`${(twentyFourSeven) ? "The bot will not exit the VC since 24/7 mode has been enabled" : "24/7 was not set, exiting!"}`)
-					.setFooter({ text: "If you wish for the queue to never end use `/autoqueue`" })
+					.setAuthor({ name: `A fila terminou ${(twentyFourSeven) ? "mas 24/7" : ""}`, iconURL: client.config.iconURL, })
+					.setDescription(`${(twentyFourSeven) ? "O bot não sairá do VC porque o modo 24/7 foi ativado" : "24/7 não foi definido, saindo!"}`)
+					.setFooter({ text: "Se você deseja que a fila nunca acabe, use `/autoqueue`" })
 					.setTimestamp();
 
 				const msg = await client.channels.cache
@@ -338,10 +338,10 @@ module.exports = (client) => {
 									embeds: [new EmbedBuilder()
 										.setColor(client.config.embedColor)
 										.setAuthor({
-											name: "Disconnected",
+											name: "Desconectado",
 											iconURL: client.config.iconURL,
 										})
-										.setDescription(`The player has been disconnected due to inactivity.`)
+										.setDescription(`O player foi desconectado devido à inatividade.`)
 									]
 								};
 

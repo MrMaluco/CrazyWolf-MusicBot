@@ -6,7 +6,7 @@ const SlashCommand = require("../../lib/SlashCommand");
 
 const command = new SlashCommand()
 	.setName("stats")
-	.setDescription("Get information about the bot")
+	.setDescription("Obtenha informações sobre o bot")
 	.setRun(async (client, interaction) => {
 		// get OS info
 		const osver = os.platform() + " " + os.release();
@@ -55,11 +55,11 @@ const command = new SlashCommand()
 			.setTitle(`${ client.user.username } Information`)
 			.setColor(client.config.embedColor)
 			.setDescription(
-				`\`\`\`yml\nName: ${ client.user.username }#${ client.user.discriminator } [${ client.user.id }]\nAPI: ${ client.ws.ping }ms\nRuntime: ${ runtime }\`\`\``,
+				`\`\`\`yml\nNome: ${ client.user.username }#${ client.user.discriminator } [${ client.user.id }]\nAPI: ${ client.ws.ping }ms\nRuntime: ${ runtime }\`\`\``,
 			)
 			.setFields([
 				{
-					name: `Lavalink stats`,
+					name: `Estatísticas do LavaLink`,
 					value: `\`\`\`yml\nUptime: ${ lavauptime }\nRAM: ${ lavaram } MB\nPlaying: ${
 						client.manager.Engine.nodes.values().next().value.stats.playingPlayers
 					} out of ${
@@ -70,7 +70,7 @@ const command = new SlashCommand()
 					inline: true,
 				},
 				{
-					name: "Bot stats",
+					name: "Estatísticas do Bot",
 					value: `\`\`\`yml\nGuilds: ${
 						client.guilds.cache.size
 					} \nNodeJS: ${ nodeVersion }\nDiscordMusicBot: v${
@@ -79,7 +79,7 @@ const command = new SlashCommand()
 					inline: true,
 				},
 				{
-					name: "System stats",
+					name: "Estatísticas do Sistema",
 					value: `\`\`\`yml\nOS: ${ osver }\nUptime: ${ sysuptime }\n\`\`\``,
 					inline: false,
 				},

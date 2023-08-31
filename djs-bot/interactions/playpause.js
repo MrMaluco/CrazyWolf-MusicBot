@@ -4,7 +4,7 @@ const { ccInteractionHook } = require("../util/interactions");
 const command = new SlashCommand()
 	.setName("playpause")
 	.setCategory("cc")
-	.setDescription("Play and Pause interaction")
+	.setDescription("Interação reproduzir e pausar")
 	.setRun(async (client, interaction, options) => {
 		const { error, data } = await ccInteractionHook(client, interaction);
 

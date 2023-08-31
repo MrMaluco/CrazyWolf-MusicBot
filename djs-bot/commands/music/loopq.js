@@ -3,7 +3,7 @@ const { EmbedBuilder } = require("discord.js");
 
 const command = new SlashCommand()
 	.setName("loopq")
-	.setDescription("Loop the current song queue")
+	.setDescription("Faça um loop na fila de músicas atual")
 	.setRun(async (client, interaction, options) => {
 		let channel = await client.getChannel(client, interaction);
 		if (!channel) {
@@ -18,7 +18,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Lavalink node is not connected"),
+						.setDescription("O nó Lavalink não está conectado"),
 				],
 			});
 		}
@@ -28,7 +28,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("There is no music playing."),
+						.setDescription("Não há música tocando."),
 				],
 				ephemeral: true,
 			});
@@ -44,7 +44,7 @@ const command = new SlashCommand()
 				new EmbedBuilder()
 					.setColor(client.config.embedColor)
 					.setDescription(
-						`:thumbsup: | **Loop queue is now \`${ queueRepeat }\`**`,
+						`:thumbsup: | **A fila de loop é agora \`${ queueRepeat }\`**`,
 					),
 			],
 		});

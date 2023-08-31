@@ -16,16 +16,16 @@ async function testUrlRegex(string) {
 	});
 }
 
-// This is currently only Erela.js compatible
+// Atualmente, isso é compatível apenas com Erela.js
 const command = new SlashCommand()
 	.setName("play")
 	.setDescription(
-		"Searches and plays the requested song \nSupports: \nYoutube, Spotify, Deezer, Apple Music"
+		"Pesquisa e reproduz a música solicitada \nSuporta: \nYoutube, Spotify, Deezer, Apple Music"
 	)
 	.addStringOption((option) =>
 		option
 			.setName("query")
-			.setDescription("What am I looking for?")
+			.setDescription("O que estou procurando?")
 			.setAutocomplete(true)
 			.setRequired(true)
 	)
@@ -53,10 +53,10 @@ const command = new SlashCommand()
 			return interaction.reply({
 				embeds: [new EmbedBuilder()
 					.setColor("Red")
-					.setTitle("Node error!")
-					.setDescription(`No available nodes to play music on!`)
+					.setTitle("Erro de nó!")
+					.setDescription(`Não há nós disponíveis para reproduzir música!`)
 					.setFooter({
-						text: "Oops! something went wrong but it's not your fault!",
+						text: "Ops! algo deu errado, mas não é culpa sua!",
 					})],
 			});
 		}
@@ -79,7 +79,7 @@ const command = new SlashCommand()
 			embeds: [
 				new EmbedBuilder()
 					.setColor(client.config.embedColor)
-					.setDescription(":mag_right: **Searching...**"),
+					.setDescription(":mag_right: **Procurando...**"),
 			],
 			fetchReply: true,
 		});
@@ -101,7 +101,7 @@ const command = new SlashCommand()
 					embeds: [
 						new EmbedBuilder()
 							.setColor("Red")
-							.setDescription("There was an error while searching"),
+							.setDescription("Ocorreu um erro durante a pesquisa"),
 					],
 				})
 				.catch(client.warn);
@@ -116,7 +116,7 @@ const command = new SlashCommand()
 					embeds: [
 						new EmbedBuilder()
 							.setColor("Red")
-							.setDescription("No results were found"),
+							.setDescription("Nenhum resultado foi encontrado"),
 					],
 				})
 				.catch(client.warn);

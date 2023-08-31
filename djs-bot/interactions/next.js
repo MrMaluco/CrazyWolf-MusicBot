@@ -6,7 +6,7 @@ const { redEmbed } = require("../util/embeds");
 const command = new SlashCommand()
 	.setName("next")
 	.setCategory("cc")
-	.setDescription("Next interaction")
+	.setDescription("Próxima interação")
 	.setRun(async (client, interaction, options) => {
 		const { error, data } = await ccInteractionHook(client, interaction);
 
@@ -21,7 +21,7 @@ const command = new SlashCommand()
 			return interaction.reply({
 				embeds: [
 					redEmbed({
-						desc: `There is nothing after [${song.title}](${song.uri}) in the queue.`,
+						desc: `Não há nada depois de [${song.title}](${song.uri}) na fila.`,
 					}),
 				],
 				ephemeral: true,

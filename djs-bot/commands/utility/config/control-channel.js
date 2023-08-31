@@ -23,12 +23,12 @@ module.exports = function controlChannel(baseCommand) {
 	baseCommand.addSubcommand((command) =>
 		command
 		.setName(commandName)
-		.setDescription("Create server control channel")
+		.setDescription("Criar canal de controle do servidor")
 		.addStringOption((opt) =>
 			opt
 			.setName("channel")
 			.setDescription(
-				"Create a channel with this name as server control channel, leave empty to reset"
+				"Crie um canal com este nome como canal de controle do servidor, deixe em branco para redefinir"
 			)
 			.setMaxLength(100)
 		)
@@ -47,19 +47,19 @@ module.exports = function controlChannel(baseCommand) {
 				try {
 					await setDbControlChannel({guildId, channelId: null, messageId: null});
 
-					return interaction.editReply("Control channel reset!");
+					return interaction.editReply("Reinicialização do canal de controle!");
 				} catch (e) {
 					client.error(
-						"Error removing control channel config in guild:",
+						"Erro ao remover a configuração do canal de controle na guilda:",
 						guildId
 					);
 					client.error(e);
 
-					return interaction.editReply("Error updating config");
+					return interaction.editReply("Erro ao atualizar a configuração");
 				}
 
 			try {
-				// just let discord validate the string as some unicode are valid channel name
+				// apenas deixe o discord validar a string, pois alguns unicode são nomes de canal válidos
 				const createdChannel = await interaction.guild.channels.create({
 					name: channelName,
 					position: 0,
@@ -73,7 +73,7 @@ module.exports = function controlChannel(baseCommand) {
 					})),
 				});
 
-				// construct control message
+				// construir mensagem de controle
 				const msg = controlChannelMessage({ guildId: interaction.guildId });
 
 				const controlMessage = await createdChannel.send(msg);
@@ -85,7 +85,7 @@ module.exports = function controlChannel(baseCommand) {
 
 				await setDbControlChannel({guildId, channelId, messageId});
 
-				return interaction.editReply(`Control channel set <#${channelId}>!`);
+				return interaction.editReply(`Conjunto de canais de controle <#${channelId}>!`);
 			} catch (e) {
 				client.error(e);
 				console.error(e);
@@ -97,11 +97,11 @@ module.exports = function controlChannel(baseCommand) {
 	baseCommand.setSubCommandBotPermissions(commandName, [
 		{
 			permission: "ManageChannels",
-			message: "creating control channel",
+			message: "criando canal de controle",
 		},
 		...CONTROL_CHANNEL_PERMISSIONS.map((perm) => ({
 			permission: perm,
-			message: "control channel management",
+			message: "gerenciamento de canal de controle",
 		})),
 	]);
 

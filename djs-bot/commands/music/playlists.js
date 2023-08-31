@@ -17,28 +17,28 @@ async function testUrlRegex(string) {
 
 module.exports = new SlashCommand()
 	.setName("playlists")
-	.setDescription("Shows your playlists")
+	.setDescription("Mostra suas playlists")
 	.addStringOption((option) => option
 		.setName("operation")
-		.setDescription("What do you want to do")
+		.setDescription("O que você quer fazer")
 		.setRequired(true)
 		.setChoices(
-			{ name: "View", value: "view" },
-			{ name: "Create", value: "create" },
-			{ name: "Delete", value: "delete" },
-			{ name: "Add", value: "add" },
-			{ name: "Remove", value: "remove" },
+			{ name: "Visualizar", value: "view" },
+			{ name: "Criar", value: "create" },
+			{ name: "Deletar", value: "delete" },
+			{ name: "Adicionar", value: "add" },
+			{ name: "Remover", value: "remove" },
 		)
 	)
 	.addStringOption((option) => option
 		.setName("playlist_name")
-		.setDescription("The name of the playlist")
+		.setDescription("O nome da playlist")
 		.setRequired(true)
 		.setAutocomplete(true)
 	)
 	.addStringOption((option) => option
 		.setName("song")
-		.setDescription("The song you want to add/remove")
+		.setDescription("A música que você deseja adicionar/remover")
 		.setRequired(false)
 		.setAutocomplete(true)
 	)
@@ -103,31 +103,31 @@ module.exports = new SlashCommand()
 
 		if (operation === "view") {
 			const playlistName = options.getString("playlist_name");
-			if (!playlistName) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("You need to provide a name for the playlist")], ephemeral: true });
+			if (!playlistName) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("Você precisa fornecer um nome para a playlist")], ephemeral: true });
 			const playlist = await client.db.playlist.findFirst({
 				where: {
 					name: playlistName,
 					userId: interaction.user.id
 				}
 			});
-			if (!playlist) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("You don't have a playlist with that name")], ephemeral: true });
+			if (!playlist) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("Você não tem uma playlist com esse nome")], ephemeral: true });
 			const songs = await client.db.song.findMany({
 				where: {
 					playlistId: playlist.id
 				}
 			});
-			if (!songs.length) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("That playlist is empty")], ephemeral: true });
+			if (!songs.length) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("Essa playlist está vazia")], ephemeral: true });
 			const embed = new EmbedBuilder()
 				.setColor(client.config.embedColor)
-				.setTitle(`Songs in ${playlist.name}`)
+				.setTitle(`Músicas em ${playlist.name}`)
 				.setDescription(songs.map((song, index) => `${index + 1}. **${song.name}** ${song.artist ?? ""}`).join("\n"))
-				.setFooter({ text: `Requested by ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) });
+				.setFooter({ text: `Pedido por ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) });
 			return interaction.reply({ embeds: [embed], ephemeral: true });
 		} else if (operation === "create") {
 			const playlistName = options.getString("playlist_name");
-			if (!playlistName) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("You need to provide a name for the playlist")], ephemeral: true });
-			else if (playlistName.length < 3) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("The playlist name can't be shorter than 3 characters")], ephemeral: true });
-			else if (playlistName.length > 32) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("The playlist name can't be longer than 32 characters")], ephemeral: true });
+			if (!playlistName) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("Você precisa fornecer um nome para a playlist")], ephemeral: true });
+			else if (playlistName.length < 3) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("O nome da playlist não pode ter menos de três caracteres")], ephemeral: true });
+			else if (playlistName.length > 32) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("O nome da playlist não pode ter mais de 32 caracteres")], ephemeral: true });
 			const playlist = await client.db.playlist.create({
 				data: {
 					name: playlistName,
@@ -145,18 +145,18 @@ module.exports = new SlashCommand()
 				}
 			});
 
-			return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription(`Created playlist **${playlist.name}**`)], ephemeral: true });
+			return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription(`Playlist criada **${playlist.name}**`)], ephemeral: true });
 		} else if (operation === "delete") {
 			const playlistName = options.getString("playlist_name");
-			if (!playlistName) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("You need to provide a name for the playlist")], ephemeral: true });
+			if (!playlistName) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("Você precisa fornecer um nome para a playlist")], ephemeral: true });
 			const playlist = await client.db.playlist.findFirst({
 				where: {
 					name: playlistName,
 					userId: interaction.user.id
 				}
 			});
-			if (!playlist) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("I couldn't find a playlist with that name")], ephemeral: true });
-			if (playlist.userId !== interaction.user.id) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("You can't delete a playlist that isn't yours")], ephemeral: true });
+			if (!playlist) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("Não consegui encontrar uma playlist com esse nome")], ephemeral: true });
+			if (playlist.userId !== interaction.user.id) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("Você não pode excluir uma playlist que não é sua")], ephemeral: true });
 
 			await client.db.playlist.delete({
 				where: {
@@ -164,7 +164,7 @@ module.exports = new SlashCommand()
 				}
 			});
 
-			return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription(`Deleted playlist **${playlist.name}**`)], ephemeral: true });
+			return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription(`Playlist excluída **${playlist.name}**`)], ephemeral: true });
 		} else if (operation === "add") {
 			const playlistName = options.getString("playlist_name");
 			const playlist = await client.db.playlist.findFirst({
@@ -174,14 +174,14 @@ module.exports = new SlashCommand()
 				}
 			});
 
-			if (!playlist) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("I couldn't find a playlist with that name")], ephemeral: true });
-			if (playlist.userId !== interaction.user.id) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("You can't add songs to a playlist that isn't yours")], ephemeral: true });
+			if (!playlist) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("Não consegui encontrar uma playlist com esse nome")], ephemeral: true });
+			if (playlist.userId !== interaction.user.id) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("Você não pode adicionar músicas a uma playlist que não é sua")], ephemeral: true });
 
 			const song = options.getString("song", true);
-			if (!song) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("You need to provide a song to add")], ephemeral: true });
+			if (!song) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("Você precisa fornecer uma música para adicionar")], ephemeral: true });
 
 			const songData = await yt.getVideo(song);
-			if (!songData) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("I couldn't find a song with that name")], ephemeral: true });
+			if (!songData) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("Não encontrei uma música com esse nome")], ephemeral: true });
 
 			const songExists = await client.db.song.findFirst({
 				where: {
@@ -226,7 +226,7 @@ module.exports = new SlashCommand()
 				});
 			}
 
-			return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription(`Added song **${songData.title}** to playlist **${playlist.name}**`)], ephemeral: true });
+			return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription(`Música adicionada **${songData.title}** à playlist **${playlist.name}**`)], ephemeral: true });
 		} else if (operation === "remove") {
 			const playlistName = options.getString("playlist_name");
 			const playlist = await client.db.playlist.findFirst({
@@ -236,17 +236,17 @@ module.exports = new SlashCommand()
 				}
 			});
 
-			if (!playlist) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("I couldn't find a playlist with that name")], ephemeral: true });
-			if (playlist.userId !== interaction.user.id) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("You can't remove songs from a playlist that isn't yours")], ephemeral: true });
+			if (!playlist) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("Não consegui encontrar uma playlist com esse nome")], ephemeral: true });
+			if (playlist.userId !== interaction.user.id) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("Você não pode remover músicas de uma playlist que não é sua")], ephemeral: true });
 
 			const song = options.getString("song", true);
-			if (!song) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("You need to provide a song to remove")], ephemeral: true });
+			if (!song) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("Você precisa fornecer uma música para remover")], ephemeral: true });
 			const songData = await client.db.song.findFirst({
 				where: {
 					name: song
 				}
 			});
-			if (!songData) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("I couldn't find a song with that name")], ephemeral: true });
+			if (!songData) return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription("Não encontrei uma música com esse nome")], ephemeral: true });
 
 			await client.db.playlist.update({
 				where: {
@@ -261,7 +261,7 @@ module.exports = new SlashCommand()
 				}
 			});
 
-			return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription(`Removed **${songData.name}** from **${playlist.name}**`)], ephemeral: true });
+			return interaction.reply({ embeds: [new EmbedBuilder().setColor(client.config.embedColor).setDescription(`**${songData.name}** removido de **${playlist.name}**`)], ephemeral: true });
 		}
 
 	});

@@ -6,7 +6,7 @@ const playerUtil = require("../util/player");
 const command = new SlashCommand()
 	.setName("prev")
 	.setCategory("cc")
-	.setDescription("Prev interaction")
+	.setDescription("Interação anterior")
 	.setRun(async (client, interaction, options) => {
 		const { error, data } = await ccInteractionHook(client, interaction);
 
@@ -20,7 +20,7 @@ const command = new SlashCommand()
 			return interaction.reply({
 				embeds: [
 					redEmbed({
-						desc: "There is no previous song in the queue.",
+						desc: "Não há nenhuma música anterior na fila.",
 					}),
 				],
 				ephemeral: true,

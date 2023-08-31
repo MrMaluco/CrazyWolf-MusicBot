@@ -3,11 +3,11 @@ const SlashCommand = require("../../lib/SlashCommand");
 
 const command = new SlashCommand()
 	.setName("clean")
-	.setDescription("Cleans the last 100 bot messages from channel.")
+	.setDescription("Limpa as últimas 100 mensagens de bot do canal.")
 	.addIntegerOption((option) =>
 		option
 			.setName("number")
-			.setDescription("Number of messages to delete.")
+			.setDescription("Número de mensagens a serem excluídas.")
 			.setMinValue(2).setMaxValue(100)
 			.setRequired(false),
 	)
@@ -32,13 +32,13 @@ const command = new SlashCommand()
 						!deletedMessages.some(deletedMsg => deletedMsg == msg);
 					});
 					if (messages.size > 0) {
-						client.log(`Deleting [${ messages.size }] messages older than 14 days.`)
+						client.log(`Excluindo [${ messages.size }] mensagens com mais de 14 dias.`)
 						for (const msg of messages) {
 							await msg.delete();
 						}
 					}
 					
-					await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`:white_check_mark: | Deleted ${ botMessages.length } bot messages`)] });
+					await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`:white_check_mark: | ${ botMessages.length } Mensagens de bot excluídas`)] });
 					setTimeout(() => {
 						interaction.deleteReply();
 					}, 5000);

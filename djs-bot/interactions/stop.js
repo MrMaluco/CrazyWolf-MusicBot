@@ -5,7 +5,7 @@ const playerUtil = require("../util/player");
 const command = new SlashCommand()
 	.setName("stop")
 	.setCategory("cc")
-	.setDescription("Stop interaction")
+	.setDescription("Interromper interação")
 	.setRun(async (client, interaction, options) => {
 		const { error, data } = await ccInteractionHook(client, interaction);
 

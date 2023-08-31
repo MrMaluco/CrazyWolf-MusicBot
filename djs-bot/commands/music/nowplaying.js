@@ -4,7 +4,7 @@ const prettyMilliseconds = require("pretty-ms");
 
 const command = new SlashCommand()
 	.setName("nowplaying")
-	.setDescription("Shows the song currently playing in the voice channel.")
+	.setDescription("Mostra a música atualmente tocando no canal de voz.")
 	.setRun(async (client, interaction, options) => {
 		let channel = await client.getChannel(client, interaction);
 		if (!channel) {
@@ -19,7 +19,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Lavalink node is not connected"),
+						.setDescription("O nó Lavalink não está conectado"),
 				],
 			});
 		}
@@ -29,7 +29,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("The bot isn't in a channel."),
+						.setDescription("O bot não está em um canal."),
 				],
 				ephemeral: true,
 			});
@@ -40,7 +40,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("There's nothing playing."),
+						.setDescription("Não há nada tocando."),
 				],
 				ephemeral: true,
 			});
@@ -52,17 +52,17 @@ const command = new SlashCommand()
         var title = title.replace(/\[/g,"")
 		const embed = new EmbedBuilder()
 			.setColor(client.config.embedColor)
-			.setAuthor({ name: "Now Playing", iconURL: client.config.iconURL })
-			// show who requested the song via setField, also show the duration of the song
+			.setAuthor({ name: "Tocando agora", iconURL: client.config.iconURL })
+			// mostra quem solicitou a música via setField, mostra também a duração da música
 			.setFields([
 				{
-					name: "Requested by",
+					name: "Pedido por",
 					value: `<@${ song.requester.id }>`,
 					inline: true,
 				},
-				// show duration, if live show live
+				// duração do show, se ao vivo show ao vivo
 				{
-					name: "Duration",
+					name: "Duração",
 					value: song.isStream
 						? `\`LIVE\``
 						: `\`${ prettyMilliseconds(player.position, {
@@ -73,9 +73,9 @@ const command = new SlashCommand()
 					inline: true,
 				},
 			])
-			// show the thumbnail of the song using displayThumbnail("maxresdefault")
+			// mostre a miniatura da música usando displayThumbnail("maxresdefault")
 			.setThumbnail(song.displayThumbnail("maxresdefault"))
-			// show the title of the song and link to it
+			// mostre o título da música e o link para ela
 			.setDescription(`[${ title }](${ song.uri })`);
 		return interaction.reply({ embeds: [embed] });
 	});

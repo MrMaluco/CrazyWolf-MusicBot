@@ -5,7 +5,7 @@ const { autoQueueEmbed } = require("../../util/embeds");
 
 const command = new SlashCommand()
 	.setName("autoqueue")
-	.setDescription("Automatically add songs to the queue (toggle)")
+	.setDescription("Adicionar músicas automaticamente à fila (alternar)")
 	.setRun(async (client, interaction) => {
 		let channel = await client.getChannel(client, interaction);
 		if (!channel) {
@@ -20,7 +20,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Lavalink node is not connected"),
+						.setDescription("O nó Lavalink não está conectado"),
 				],
 			});
 		}
@@ -30,7 +30,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("There's nothing playing in the queue"),
+						.setDescription("Não há nada reproduzindp na fila"),
 				],
 				ephemeral: true,
 			});
@@ -46,12 +46,12 @@ const command = new SlashCommand()
 		}
 
 		client.warn(
-			`Player: ${ player.options.guild } | [${ colors.blue(
+			`Reprodutor: ${ player.options.guild } | [${ colors.blue(
 				"AUTOQUEUE",
-			) }] has been [${ colors.blue(!autoQueue? "ENABLED" : "DISABLED") }] in ${
+			) }] foi [${ colors.blue(!autoQueue? "ENABLED" : "DISABLED") }] em ${
 				client.guilds.cache.get(player.options.guild)
 					? client.guilds.cache.get(player.options.guild).name
-					: "a guild"
+					: "pela guilda"
 			}`,
 		);
 		

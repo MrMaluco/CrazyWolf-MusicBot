@@ -3,11 +3,11 @@ const { EmbedBuilder } = require("discord.js");
 
 const command = new SlashCommand()
 	.setName("skipto")
-	.setDescription("skip to a specific song in the queue")
+	.setDescription("pular para uma música específica na fila")
 	.addNumberOption((option) =>
 		option
 			.setName("number")
-			.setDescription("The number of tracks to skipto")
+			.setDescription("O número de faixas a pular")
 			.setRequired(true),
 	)
 	
@@ -28,7 +28,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Lavalink node is not connected"),
+						.setDescription("O nó Lavalink não está conectado"),
 				],
 			});
 		}
@@ -38,7 +38,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("I'm not in a channel."),
+						.setDescription("Eu não estou em um canal."),
 				],
 				ephemeral: true,
 			});
@@ -52,7 +52,7 @@ const command = new SlashCommand()
 			if (!position || position < 0 || position > player.queue.size) {
 				let thing = new EmbedBuilder()
 					.setColor(client.config.embedColor)
-					.setDescription("❌ | Invalid position!");
+					.setDescription("❌ | Posição inválida!");
 				return interaction.editReply({ embeds: [thing] });
 			}
 			
@@ -61,7 +61,7 @@ const command = new SlashCommand()
 			
 			let thing = new EmbedBuilder()
 				.setColor(client.config.embedColor)
-				.setDescription("✅ | Skipped to position " + position);
+				.setDescription("✅ | Pulou para a posição " + position);
 			
 			return interaction.editReply({ embeds: [thing] });
 		} catch {
@@ -72,7 +72,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor(client.config.embedColor)
-						.setDescription("✅ | Skipped to position " + position),
+						.setDescription("✅ | Pulou para a posição " + position),
 				],
 			});
 		}

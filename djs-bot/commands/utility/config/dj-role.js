@@ -5,12 +5,12 @@ module.exports = function djRole(baseCommand) {
 	baseCommand.addSubcommand((command) =>
 		command
 		.setName("dj-role")
-		.setDescription("Set server DJ role")
+		.setDescription("Definir função de DJ do servidor")
 		.addRoleOption((opt) =>
 			opt
 			.setName("role")
 			.setDescription(
-				"Set this role as server DJ role, leave empty to reset"
+				"Defina esta função como função de DJ do servidor, deixe em branco para redefinir"
 			)
 		)
 	);
@@ -34,10 +34,10 @@ module.exports = function djRole(baseCommand) {
 			} catch (e) {
 				client.error(e);
 
-				return interaction.reply("Error updating config");
+				return interaction.reply("Erro ao atualizar a configuração");
 			}
 
-			const reply = !roleId ? "DJ Role reset!" : "DJ Role set!";
+			const reply = !roleId ? "Função de DJ redefinida!" : "Conjunto de papéis de DJ!";
 
 			return interaction.reply(reply);
 		}

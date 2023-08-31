@@ -11,11 +11,11 @@ const lyricsApi = new Rlyrics();
 
 const command = new SlashCommand()
 	.setName("lyrics")
-	.setDescription("Get the lyrics of a song")
+	.setDescription("Obtenha a letra de uma música")
 	.addStringOption((option) =>
 		option
 			.setName("song")
-			.setDescription("The song to get lyrics for")
+			.setDescription("A música para obter a letra")
 			.setRequired(false),
 	)
 	.setRun(async (client, interaction, options) => {
@@ -23,7 +23,7 @@ const command = new SlashCommand()
 			embeds: [
 				new EmbedBuilder()
 					.setColor(client.config.embedColor)
-					.setDescription("🔎 | **Searching...**"),
+					.setDescription("🔎 | **Procurando...**"),
 			],
 		});
 
@@ -35,7 +35,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Lavalink node is not connected"),
+						.setDescription("O nó Lavalink não está conectado"),
 				],
 			});
 		}
@@ -46,7 +46,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("There's nothing playing"),
+						.setDescription("Não há nada jogando"),
 				],
 			});
 		}
@@ -85,7 +85,7 @@ const command = new SlashCommand()
 				const menu = new ActionRowBuilder().addComponents(
 					new StringSelectMenuBuilder()
 						.setCustomId("choose-lyrics")
-						.setPlaceholder("Choose a song")
+						.setPlaceholder("Escolha uma música")
 						.addOptions(lyricsResults),
 				);
 
@@ -94,7 +94,7 @@ const command = new SlashCommand()
 						new EmbedBuilder()
 							.setColor(client.config.embedColor)
 							.setDescription(
-								`Here are some of the results I found for \`${query}\`. Please choose a song to display lyrics within \`30 seconds\`.`
+								`Aqui estão alguns dos resultados que encontrei para \`${query}\`. Escolha uma música para exibir a letra em \`30 segundos\`.`
 							),
 					], components: [menu],
 				});
@@ -115,9 +115,9 @@ const command = new SlashCommand()
 							let lyricsText = lyrics.lyrics;
 							
 							if (lyricsText.length === 0) {
-								lyricsText = `**Unfortunately we're not authorized to show these lyrics.**`
+								lyricsText = `**Infelizmente não estamos autorizados a mostrar essas letras.**`
 							} else if (lyricsText.length > 4096) {
-								lyricsText = lyricsText.substring(0, 4045) + "\n\n[...]\nTruncated, the lyrics were too long."
+								lyricsText = lyricsText.substring(0, 4045) + "\n\n[...]\nTruncada, a letra era muito longa."
 							}
 
 							const button = new ActionRowBuilder()
@@ -161,7 +161,7 @@ const command = new SlashCommand()
 							embeds: [
 								new EmbedBuilder()
 									.setDescription(
-										`No song is selected. You took too long to select a track.`
+										`Nenhuma música está selecionada. Você demorou muito para selecionar uma faixa.`
 									)
 									.setColor(client.config.embedColor),
 							], components: [],
@@ -183,7 +183,7 @@ const command = new SlashCommand()
 						new EmbedBuilder()
 							.setColor("Red")
 							.setDescription(
-								`No results found for \`${query}\`!\nMake sure you typed in your search correctly.`,
+								`Nenhum resultado encontrado para \`${query}\`!\nCertifique-se de ter digitado sua pesquisa corretamente.`,
 							),
 					], components: [button],
 				});
@@ -195,7 +195,7 @@ const command = new SlashCommand()
 					new EmbedBuilder()
 						.setColor("Red")
 						.setDescription(
-							`An unknown error has occured, please check your console.`,
+							`Ocorreu um erro desconhecido, verifique seu console.`,
 						),
 				],
 			});
@@ -214,10 +214,10 @@ const command = new SlashCommand()
 							.setTitle(`Lyrics Tips`)
 							.setColor(client.config.embedColor)
 							.setDescription(
-								`Here is some tips to get your song lyrics correctly \n\n\
-                                1. Try to add the artist's name in front of the song name.\n\
-                                2. Try to search the lyrics manually by providing the song query using your keyboard.\n\
-                                3. Avoid searching lyrics in languages other than English.`,
+								`Aqui estão algumas dicas para obter as letras das músicas corretamente \n\n\
+                                1. Tente adicionar o nome do artista antes do nome da música.\n\
+                                2. Tente pesquisar as letras manualmente, fornecendo a consulta da música usando o teclado.\n\
+                                3. Evite pesquisar letras em outros idiomas que não o inglês.`,
 							),
 					], ephemeral: true, components: []
 				});

@@ -4,7 +4,7 @@ module.exports = {
 	name: "ping",
 	category: "utility",
 	usage: "/ping",
-	description: "Is the bot running slow? Check the bot's ping and see if it's lagging or if you are!",
+	description: "O bot está lento? Verifique o ping do bot e veja se ele está atrasado ou se você está!",
 	ownerOnly: false,
 	run: async (client, interaction) => {
 		const msg = await interaction.channel.send(`🏓 Pinging...`);

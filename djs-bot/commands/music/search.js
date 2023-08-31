@@ -5,11 +5,11 @@ const { embedNoLLNode, redEmbed, colorEmbed } = require("../../util/embeds");
 
 const command = new SlashCommand()
   .setName("search")
-  .setDescription("Search for a song")
+  .setDescription("Procure uma música")
   .addStringOption((option) =>
     option
       .setName("query")
-      .setDescription("The song to search for")
+      .setDescription("A música a ser pesquisada")
       .setRequired(true)
   )
   .setRun(async (client, interaction, options) => {
@@ -40,7 +40,7 @@ const command = new SlashCommand()
     let res;
 
     const sendRedEmbed = (
-      desc = "An error occured while searching for the song"
+      desc = "Ocorreu um erro ao pesquisar a música"
     ) => {
       return interaction.reply({
         embeds: [
@@ -62,7 +62,7 @@ const command = new SlashCommand()
     }
 
     if (res.loadType == "NO_MATCHES") {
-      return sendRedEmbed(`No results found for \`${search}\``);
+      return sendRedEmbed(`Nenhum resultado encontrado para \`${search}\``);
     } else {
       let max = 10;
       if (res.tracks.length < max) {
@@ -86,7 +86,7 @@ const command = new SlashCommand()
       const menus = new ActionRowBuilder().addComponents(
         new StringSelectMenuBuilder()
           .setCustomId("select")
-          .setPlaceholder("Select a song")
+          .setPlaceholder("Selecione uma música")
           .addOptions(resultFromSearch)
       );
 
@@ -94,7 +94,7 @@ const command = new SlashCommand()
         embeds: [
           colorEmbed({
             color: client.config.embedColor,
-            desc: `Here are some of the results I found for \`${search}\`. Please select track within \`30 seconds\``,
+            desc: `Aqui estão alguns dos resultados que encontrei para \`${search}\`. Selecione a música em \`30 segundos\``,
           }),
         ],
         components: [menus],
@@ -124,23 +124,23 @@ const command = new SlashCommand()
             embeds: [
               new EmbedBuilder()
                 .setAuthor({
-                  name: "Added to queue",
+                  name: "Adicionado à fila",
                   iconURL: client.config.iconURL,
                 })
                 .setURL(res.tracks[0].uri)
                 .setThumbnail(res.tracks[0].displayThumbnail("maxresdefault"))
                 .setDescription(
                   `[${trackForPlay?.tracks[0]?.title}](${trackForPlay?.tracks[0].uri})` ||
-                    "No Title"
+                    "Sem título"
                 )
                 .addFields(
                   {
-                    name: "Added by",
+                    name: "Adicionado por",
                     value: `<@${interaction.user.id}>`,
                     inline: true,
                   },
                   {
-                    name: "Duration",
+                    name: "Duração",
                     value: res.tracks[0].isStream
                       ? `\`LIVE :red_circle:\``
                       : `\`${client.ms(res.tracks[0].duration, {
@@ -162,7 +162,7 @@ const command = new SlashCommand()
             embeds: [
               colorEmbed({
                 color: client.config.embedColor,
-                desc: `No track selected. You took too long to select a track.`,
+                desc: `Nenhuma música selecionada. Você demorou muito para selecionar uma faixa.`,
               }),
             ],
             components: [],

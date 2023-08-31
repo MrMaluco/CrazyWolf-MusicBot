@@ -4,7 +4,7 @@ const SlashCommand = require("../../lib/SlashCommand");
 
 const command = new SlashCommand()
   .setName("autoleave")
-  .setDescription("Automatically leaves when everyone leaves the voice channel (toggle)")
+  .setDescription("Sai automaticamente quando todos saem do canal de voz (alternar)")
   .setRun(async (client, interaction) => {
     let channel = await client.getChannel(client, interaction);
     if (!channel) return;
@@ -17,7 +17,7 @@ const command = new SlashCommand()
         embeds: [
           new EmbedBuilder()
             .setColor("Red")
-            .setDescription("Lavalink node is not connected"),
+            .setDescription("O nó Lavalink não está conectado"),
         ],
       });
 
@@ -26,7 +26,7 @@ const command = new SlashCommand()
         embeds: [
           new EmbedBuilder()
             .setColor("Red")
-            .setDescription("There's nothing playing in the queue"),
+            .setDescription("Não há nada reproduzindo na fila"),
         ],
         ephemeral: true,
       });
@@ -42,17 +42,17 @@ const command = new SlashCommand()
       player.set("autoLeave", false);
     }
     autoLeaveEmbed
-			.setDescription(`**Auto Leave is** \`${!autoLeave ? "ON" : "OFF"}\``)
+			.setDescription(`**A saída automática está** \`${!autoLeave ? "ON" : "OFF"}\``)
 			.setFooter({
-			  text: `The player will ${!autoLeave ? "now automatically" : "not automatically"} leave when the voice channel is empty.`
+			  text: `O reprodutor ${!autoLeave ? "irá agora automaticamente": "não irá automaticamente"} sair quando o canal de voz estiver vazio`
 			});
     client.warn(
-      `Player: ${player.options.guild} | [${colors.blue(
+      `Reprodutor: ${player.options.guild} | [${colors.blue(
         "autoLeave"
-      )}] has been [${colors.blue(!autoLeave ? "ENABLED" : "DISABLED")}] in ${
+      )}] foi [${colors.blue(!autoLeave ? "ENABLED" : "DISABLED")}] em ${
         client.guilds.cache.get(player.options.guild)
           ? client.guilds.cache.get(player.options.guild).name
-          : "a guild"
+          : "pela guilda"
       }`
     );
 

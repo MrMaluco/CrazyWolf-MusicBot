@@ -4,7 +4,7 @@ const playerUtil = require("../../util/player");
 
 const command = new SlashCommand()
 	.setName("stop")
-	.setDescription("Stops whatever the bot is playing and leaves the voice channel\n(This command will clear the queue)")
+	.setDescription("Interrompe tudo o que o bot está tocando e sai do canal de voz\n(Este comando limpará a fila)")
 	
 	.setRun(async (client, interaction, options) => {
 		let channel = await client.getChannel(client, interaction);
@@ -20,7 +20,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Lavalink node is not connected"),
+						.setDescription("O nó Lavalink não está conectado"),
 				],
 			});
 		}
@@ -30,7 +30,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("I'm not in a channel."),
+						.setDescription("Eu não estou em um canal."),
 				],
 				ephemeral: true,
 			});

@@ -3,11 +3,11 @@ const { EmbedBuilder } = require("discord.js");
 
 const command = new SlashCommand()
 	.setName("remove")
-	.setDescription("Remove track you don't want from queue")
+	.setDescription("Remova a faixa que você não deseja da fila")
 	.addNumberOption((option) =>
 		option
 			.setName("number")
-			.setDescription("Enter track number.")
+			.setDescription("Insira o número da música.")
 			.setRequired(true),
 	)
 	
@@ -27,7 +27,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Lavalink node is not connected"),
+						.setDescription("O nó Lavalink não está conectado"),
 				],
 			});
 		}
@@ -37,7 +37,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("There are no songs to remove."),
+						.setDescription("Não há músicas para remover."),
 				],
 				ephemeral: true,
 			});
@@ -50,7 +50,7 @@ const command = new SlashCommand()
 			let thing = new EmbedBuilder()
 				.setColor(client.config.embedColor)
 				.setDescription(
-					`Current queue has only **${ player.queue.size }** track`,
+					`A fila atual tem apenas **${ player.queue.size }** música`,
 				);
 			return interaction.editReply({ embeds: [thing] });
 		}
@@ -61,7 +61,7 @@ const command = new SlashCommand()
 		const number = position + 1;
 		let removeEmbed = new EmbedBuilder()
 			.setColor(client.config.embedColor)
-			.setDescription(`Removed track number **${ number }** from queue`);
+			.setDescription(`Número da faixa **${ number }** removido da fila`);
 		return interaction.editReply({ embeds: [removeEmbed] });
 	});
 

@@ -3,7 +3,7 @@ const { EmbedBuilder } = require("discord.js");
 
 const command = new SlashCommand()
 	.setName("shuffle")
-	.setDescription("Randomizes the queue")
+	.setDescription("Randomiza a fila")
 	.setRun(async (client, interaction, options) => {
 		let channel = await client.getChannel(client, interaction);
 		if (!channel) {
@@ -18,7 +18,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Lavalink node is not connected"),
+						.setDescription("O nó Lavalink não está conectado"),
 				],
 			});
 		}
@@ -28,7 +28,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("There is no music playing."),
+						.setDescription("Não há música tocando."),
 				],
 				ephemeral: true,
 			});
@@ -39,19 +39,19 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("There are not enough songs in the queue."),
+						.setDescription("Não há músicas suficientes na fila."),
 				],
 				ephemeral: true,
 			});
 		}
 		
-		//  if the queue is not empty, shuffle the entire queue
+		//  se a fila não estiver vazia, embaralhe toda a fila
 		player.queue.shuffle();
 		return interaction.reply({
 			embeds: [
 				new EmbedBuilder()
 					.setColor(client.config.embedColor)
-					.setDescription("🔀 | **Successfully shuffled the queue.**"),
+					.setDescription("🔀 | **Embaralhada com sucesso a fila.**"),
 			],
 		});
 	});

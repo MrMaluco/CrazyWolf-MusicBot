@@ -6,7 +6,7 @@ module.exports = {
 	name: "reload",
 	category: "utility",
 	usage: "/reload",
-	description: "Reload all slash commands (This is a debug command available only to the developer of the bot)",
+	description: "Recarregue todos os comandos slash (este é um comando de depuração disponível apenas para o desenvolvedor do bot)",
 	ownerOnly: true,
 	run: async (client, interaction) => {
 		try {
@@ -21,7 +21,7 @@ module.exports = {
 					delete require.cache[require.resolve(commandPath)];
 					const command = require(commandPath);
 					if (!command || !command.run || !command.name) {
-						return client.error(`Unable to load command: ${file} does not have a valid command with run function or name`);
+						return client.error(`Não foi possível carregar o comando: ${file} não possui um comando válido com função ou nome de execução`);
 					}
 					client.slash.set(command.name, command);
 				}
@@ -33,7 +33,7 @@ module.exports = {
 				embeds: [new EmbedBuilder()
 					.setColor(client.config.embedColor)
 					.setDescription(commandsSize)
-					.setFooter({text: `${client.user.username} was reloaded by ${interaction.user.username}`})
+					.setFooter({text: `${client.user.username} foi recarregado por ${interaction.user.username}`})
 					.setTimestamp(),
 				], 
 				ephemeral: true
@@ -43,8 +43,8 @@ module.exports = {
 			console.log(err);
 			return interaction.reply({ 
 				embeds: [new EmbedBuilder().setColor("Red")
-				.setDescription("OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!")
-				.setFooter({text: "In short... I don't know what happened... But you can ask a bot dev to look into it :D"})], 
+				.setDescription("OOPSIE, WOOPSIE!! Uwu Fizemos um maluco!! Um pouco de merda boingo! Os macacos do código em nossa sede estão trabalhando VEWY HAWD para consertar isso!")
+				.setFooter({text: "Resumindo... não sei o que aconteceu... Mas você pode pedir a um desenvolvedor de bot para investigar :D"})], 
 				ephemeral: true
 			})
 		}

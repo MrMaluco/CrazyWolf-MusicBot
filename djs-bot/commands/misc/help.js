@@ -11,7 +11,7 @@ module.exports = {
 		{
 			type: 3, // "STRING"
 			name: 'command',
-			description: 'What command do you want to view',
+			description: 'Qual comando você deseja exibir',
 			required: false,
 			autocomplete: true,
 		}
@@ -20,7 +20,7 @@ module.exports = {
 		return { name: cmd.name, value: cmd.name }
 	}),
 	category: "misc",
-	description: "Return all commands, or one specific command!",
+	description: "Retorne todos os comandos, ou um comando específico!",
 	ownerOnly: false,
 	run: async (client, interaction) => {
 		const commandArg = interaction.options.getString("command");
@@ -39,8 +39,8 @@ module.exports = {
 			return interaction.reply({
 				embeds: [new EmbedBuilder()
 					.setColor(client.config.embedColor)
-					.setTitle("Are you sure you wrote that correctly?")
-					.setDescription("No command by that name exists\nUse `/help` to get a full list of the commands")],
+					.setTitle("Tem certeza de que escreveu isso corretamente?")
+					.setDescription("Nenhum comando com esse nome existe\nUse '/help' para obter uma lista completa dos comandos")],
 				ephemeral: true
 			})
 		} else if (client.slash.has(commandArg)) {
@@ -48,21 +48,21 @@ module.exports = {
 				embeds: [new EmbedBuilder()
 					.setColor(client.config.embedColor)
 					.setTitle(commandArg)
-					.setDescription(`${(client.slash.get(commandArg).ownerOnly ? "**(Owner Only)**" : "")}\n**Description:**\n${client.slash.get(commandArg).description}\n${(client.slash.get(commandArg).usage ? "**Usage:**\n" + client.slash.get(commandArg).usage : "")}`)
-					.setFooter({ text: "For a more complete list of the available commands use `/help` without any arguments." })]
+					.setDescription(`${(client.slash.get(commandArg).ownerOnly ? "**(Apenas proprietário)**" : "")}\n**Descrição:**\n${client.slash.get(commandArg).description}\n${(client.slash.get(commandArg).usage ? "**Uso:**\n" + client.slash.get(commandArg).usage : "")}`)
+					.setFooter({ text: "Para obter uma lista mais completa dos comandos disponíveis, use '/help' sem argumentos." })]
 			})
 		}
 
 		//await interaction.deferReply().catch((_) => {});
 
 		let initialEmbed = new EmbedBuilder()
-			.setTitle("Slash Commands")
-			.setDescription("Here's a basic list of all the commands to orient yourself on the functionalities of the bot:")
+			.setTitle("Comandos Slash")
+			.setDescription("Aqui está uma lista básica de todos os comandos para se orientar sobre as funcionalidades do bot:")
 			.setColor(client.config.embedColor);
 		let helpMenuActionRow = new ActionRowBuilder();
 		let helpSelectMenu = new StringSelectMenuBuilder()
 			.setCustomId("helpSelectMenu")
-			.setPlaceholder("No Category Selected")
+			.setPlaceholder("Nenhuma categoria selecionada")
 			.addOptions([{ label: "Commands Overview", value: "overview" }]);
 
 		const categories = client.slash.reduce((prev, val) => {
@@ -102,7 +102,7 @@ module.exports = {
 			`[✨ Support Server](https://discord.gg/sbySMS7m3v) | [Issues](https://github.com/SudhanPlayz/Discord-MusicBot/issues) | [Source](https://github.com/SudhanPlayz/Discord-MusicBot/tree/v5) | [Invite Me](https://discord.com/oauth2/authorize?client_id=${client.config.clientId}&permissions=${client.config.permissions}&scope=${client.config.scopes.toString().replace(/,/g, '%20')})`,
 		);
 
-		// when defer is active this needs to edit the previous reply instead
+		// quando adiar está ativo, isso precisa editar a resposta anterior
 		/**
 		 * @type {Message}
 		 */
@@ -123,16 +123,16 @@ module.exports = {
 				if (!commandFiles.length) {
 					await collectedInteraction.update({
 						embeds: [new EmbedBuilder()
-							.setDescription(`No commands found for ${category} category...
-					Please select something else.`)]
+							.setDescription(`Nenhum comando encontrado para categoria ${category}...
+					Selecione outra coisa.`)]
 					});
 				} else if (commandFiles.length > 25) {
 					const maxPages = Math.ceil(commandFiles.length / 25);
 
 					helpCategoryEmbed = new EmbedBuilder()
 						.setColor(client.config.embedColor)
-						.setTitle(`${capitalize(category)} Commands`)
-						.setFooter({text: `Page ${currentPage + 1} of ${maxPages}`});
+						.setTitle(`${capitalize(category)} Comandos`)
+						.setFooter({text: `Página ${currentPage + 1} de ${maxPages}`});
 					let commandFilesPerPage = commandFiles.slice(currentPage * 25, (currentPage + 1) * 25);
 					/** @type {Array<{name: string, value: string}>} */
 					let fieldsPerPage = [];
@@ -159,8 +159,8 @@ module.exports = {
 
 							helpCategoryEmbed = new EmbedBuilder()
 								.setColor(client.config.embedColor)
-								.setTitle(`${capitalize(category)} Commands`)
-								.setFooter({ text: `Page ${currentPage + 1} of ${maxPages}` });
+								.setTitle(`${capitalize(category)} Comandos`)
+								.setFooter({ text: `Página ${currentPage + 1} de ${maxPages}` });
 
 							commandFilesPerPage = commandFiles.slice(currentPage * 25, (currentPage + 1) * 25);
 							fieldsPerPage = [];
@@ -178,7 +178,7 @@ module.exports = {
 				} else {
 					helpCategoryEmbed
 						.setColor(client.config.embedColor)
-						.setTitle(`${capitalize(category)} Commands`);
+						.setTitle(`${capitalize(category)} Comandos`);
 
 					for (let command of commandFiles) {
 						/** @type {SlashCommand} */

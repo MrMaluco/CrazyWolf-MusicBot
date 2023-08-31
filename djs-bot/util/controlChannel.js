@@ -24,14 +24,14 @@ const setControlChannelMessage = (guildId, message) => {
  * @returns {Promise<Message | null>}
  */
 const getControlChannelMessage = async (guildId) => {
-	if (!guildId) throw new Error("No guild Id provided");
+	if (!guildId) throw new Error("Nenhum ID de guilda fornecido");
 
 	const cache = controlChannelMessageCache.get(guildId);
 	if (cache !== undefined) return cache;
 
 	const client = getClient();
 
-	if (!client.db) throw new Error("No database configured");
+	if (!client.db) throw new Error("Nenhum banco de dados configurado");
 
 	const { controlChannelId, controlChannelMessageId } =
 		(await client.db.guild.findFirst({
@@ -60,7 +60,7 @@ const deleteControlChannelMessage = (guildId) => {
 };
 
 const setDbControlChannel = async ({ guildId, channelId, messageId } = {}) => {
-	if (!guildId) throw new Error("No guildId provided");
+	if (!guildId) throw new Error("Nenhum ID de guilda fornecido");
 
 	const client = getClient();
 
@@ -74,7 +74,7 @@ const setDbControlChannel = async ({ guildId, channelId, messageId } = {}) => {
 		);
 	else deleteControlChannelMessage(guildId);
 
-	if (!client.db) throw new Error("No db configured");
+	if (!client.db) throw new Error("Nenhum banco de dados configurado");
 
 	await client.db.guild.upsert({
 		where: {
@@ -111,7 +111,7 @@ const handleMessageDelete = async (message) => {
 
 	const client = getClient();
 
-	if (!client.db) throw new Error("No database configured");
+	if (!client.db) throw new Error("Nenhum banco de dados configurado");
 
 	await client.db.guild.update({
 		where: {
@@ -128,7 +128,7 @@ const handleMessageDelete = async (message) => {
 const updateControlMessage = async (guildId, track) => {
 	const message = await getControlChannelMessage(guildId);
 
-	if (!message) throw new Error("Guild doesn't have control channel");
+	if (!message) throw new Error("Guilda não tem canal de controle");
 
 	return message.edit(controlChannelMessage({ guildId, track }));
 };
@@ -169,15 +169,15 @@ const handleMessageCreate = async (message) => {
 	};
 
 	const memberVC = message.member?.voice?.channel;
-	if (!memberVC) return returnError("You're not in a voice channel!");
+	if (!memberVC) return returnError("Você não está em um canal de voz!");
 
 	const clientVC = message.guild.members.cache.get(client.user.id)?.voice?.channel;
 	const isNotInSameVC = !clientVC?.equals(memberVC);
 
-	if (clientVC && isNotInSameVC) return returnError("You're not in my voice channel!");
+	if (clientVC && isNotInSameVC) return returnError("Você não está no meu canal de voz!");
 
 	if (!memberVC.joinable)
-		return returnError("I don't have enough permission to join your voice channel");
+		return returnError("Não tenho permissão suficiente para entrar no seu canal de voz");
 
 	const node = await client.getLavalink(client);
 	if (!node) return retDel();
@@ -201,7 +201,7 @@ const handleMessageCreate = async (message) => {
 
 	const responseMessage = await message
 		.reply({
-			embeds: [colorEmbed({ desc: ":mag_right: **Searching...**" })],
+			embeds: [colorEmbed({ desc: ":mag_right: **Procurando...**" })],
 			fetchReply: true,
 		})
 		.catch(client.warn);
@@ -250,8 +250,8 @@ const handleMessageCreate = async (message) => {
 			embeds: [
 				redEmbed({
 					desc: noMatches
-						? "No results were found"
-						: "There was an error while searching",
+						? "Nenhum resultado foi encontrado"
+						: "Ocorreu um erro durante a pesquisa",
 				}),
 			],
 		});
@@ -333,7 +333,7 @@ const preventInteraction = async (interaction) => {
 	return interaction.reply({
 		embeds: [
 			redEmbed({
-				desc: "You can't run commands in dedicated Server Control Channel!",
+				desc: "Você não pode executar comandos no canal de controle do servidor dedicado!",
 			}),
 		],
 		ephemeral: true,

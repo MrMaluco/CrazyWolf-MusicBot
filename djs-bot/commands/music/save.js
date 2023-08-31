@@ -4,7 +4,7 @@ const prettyMilliseconds = require("pretty-ms");
 
 const command = new SlashCommand()
 	.setName("save")
-	.setDescription("Saves current song to your DM's")
+	.setDescription("Salva a música atual no seu DM")
 	.setRun(async (client, interaction) => {
 		let channel = await client.getChannel(client, interaction);
 		if (!channel) {
@@ -19,7 +19,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("Lavalink node is not connected"),
+						.setDescription("O nó Lavalink não está conectado"),
 				],
 			});
 		}
@@ -29,7 +29,7 @@ const command = new SlashCommand()
 				embeds: [
 					new EmbedBuilder()
 						.setColor("Red")
-						.setDescription("There is no music playing right now."),
+						.setDescription("Não há música tocando no momento."),
 				],
 				ephemeral: true,
 			});
@@ -38,27 +38,27 @@ const command = new SlashCommand()
 		const sendtoDmEmbed = new EmbedBuilder()
 			.setColor(client.config.embedColor)
 			.setAuthor({
-				name: "Saved track",
+				name: "Música salva",
 				iconURL: `${ interaction.user.displayAvatarURL({ dynamic: true }) }`,
 			})
 			.setDescription(
-				`**Saved [${ player.queue.current.title }](${ player.queue.current.uri }) to your DM**`,
+				`**[${ player.queue.current.title }](${ player.queue.current.uri }) salvo em seu DM**`,
 			)
 			.addFields(
 				{
-					name: "Track Duration",
+					name: "Duração da música",
 					value: `\`${ prettyMilliseconds(player.queue.current.duration, {
 						colonNotation: true,
 					}) }\``,
 					inline: true,
 				},
 				{
-					name: "Track Author",
+					name: "Author",
 					value: `\`${ player.queue.current.author }\``,
 					inline: true,
 				},
 				{
-					name: "Requested Guild",
+					name: "Pedido pela Guilda",
 					value: `\`${ interaction.guild }\``,
 					inline: true,
 				},
@@ -71,7 +71,7 @@ const command = new SlashCommand()
 				new EmbedBuilder()
 					.setColor(client.config.embedColor)
 					.setDescription(
-						"Please check your **DMs**. If you didn't receive any message from me please make sure your **DMs** are open",
+						"Por favor, verifique seus **DMs**. Se você não recebeu nenhuma mensagem minha, certifique-se de que seus **DMs** estejam abertos",
 					),
 			],
 			ephemeral: true,
